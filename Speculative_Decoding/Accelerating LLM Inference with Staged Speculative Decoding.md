@@ -1,36 +1,34 @@
-# Paper Title
-- **Author**: Author's Name
-- **Publication Year**: Year of Publication
-- **Journal/Conference**: Journal or Conference where it was published
+# Accelerating LLM Inference with Staged Speculative Decoding
+- **作者**: Benjamin Spector, Chris Re
+- **出版年份**: 2023
+- **期刊/会议**: Proceedings of the 40th International Conference on Machine Learning (ICML 2023)
 
-## Abstract
-Briefly summarize the main content and findings of the paper. This typically includes problem statement, methods, experimental results, and conclusions.
+## 摘要
+本文提出了一种称为"分阶段猜测解码"的新颖算法，旨在加速小批量、设备端情景下的大型语言模型（LLM）推断。作者通过改进以往的猜测解码方法来解决小批量推断的低算术强度问题。他们将猜测批量重新构造为一棵树，引入了第二阶段的猜测解码，从而将单批次解码延迟减少了3.16倍，同时保持了输出质量。
 
-## Introduction
-- Background and motivation of the paper.
-- Main problem statement.
-- The method or methodology proposed by the authors.
+## 介绍
+- 背景和动机：本文探讨了加速大型语言模型（LLMs）本地（小批量）推断的挑战。小批量推断通常由于其低算术强度而导致计算利用率较低。作者认为，优化本地推断延迟对于改善实时互动、实现个性化LLM体验和增强数据隐私至关重要。
+- 方法：将猜测批量重新构造为一棵树，提出了一种名为"Staged Speculative Decoding"的解决方案，建立在以前的猜测解码技术基础上。
 
-## Methodology
-- Provide detailed descriptions of the methods, techniques, or experimental design used by the authors.
-- Include information on data collection, experimental setup, and algorithms, among others.
+## 方法
+- 首先，draft对长的单序列序列的预测和target差异较大，加速性能会急剧下降，他们将猜测批量重新构造为可能的令牌序列树，这允许创建更大、更高质量的猜测批量。
+- 其次，他们引入了第二阶段的猜测解码，也对起草模型进行了解码。这些技术显著改进了确定性解码和基于采样的解码性能。**实际上就是，对draft也做一次猜测解码**
 
-## Experimental Results
-- Highlight the primary experimental results and discoveries mentioned in the paper.
-- Compare with other relevant works if applicable.
+<img width="321" alt="image" src="https://github.com/zgMin/Paper_Reading/assets/52092775/53680084-61fe-467f-8f62-c9eb866c8b4c">
 
-## Discussion
-- Offer interpretations and discussions of the experimental results.
-- Address the limitations of the paper and suggest future research directions.
 
-## Conclusion
-- Summarize the primary contributions and findings of the paper.
-- Emphasize the main conclusions drawn by the authors.
+## 实验结果
+作者使用三种模型进行了评估：一个GPT-2-Large参数预测模型、一个较小的GPT-2起草模型以及一个Katz退避三元模型作为起草2模型。他们将其分阶段猜测解码方法与基准非猜测解码方法和标准猜测解码方法进行了比较。结果显示，分阶段猜测解码将单批次解码延迟减少了3.16倍，同时保持了输出质量。
 
-## Personal Perspective
-- Share your thoughts and comments on the paper.
-- Discuss what you consider innovative in the paper and its significance to the field.
+## 讨论
+作者讨论了他们的分阶段猜测解码方法的优点，包括性能改进、增加了每批次的预期令牌数量以及对小型起草模型的更好并行性。他们还强调了实施树状批量的重要性，并提供了有关树结构的构建细节。本文承认了猜测解码方法的局限性，并提出了未来的研究方向。
 
-## References
-- List all references cited in the paper, along with any additional relevant literature you may have consulted during your research.
+## 结论
+本文提出了分阶段猜测解码作为在小批量、设备端情景下加速LLM推断的有效方法。所提出的算法通过将猜测批量重新构造为一棵树并引入第二阶段的猜测解码，实验证明将单批次解码延迟显著减少，同时保持了输出质量。
+
+## 个人观点
+- token序列树，保证了每个序列都较短，这可以保证draft的接受率，此外一次draft可以提供更多的可能，一次target也可以验证更多的可能。
+- 对于token序列树的实现说明不多，也没有代码，很难确定本文是如何实现的，包括如何采样多种可能以及如何验证。
+- 既然两个draft可以，那么更多的draft是不是也可以？如何权衡draft数量与加速效果，以及逐级draft的模型大小呢？
+
 
