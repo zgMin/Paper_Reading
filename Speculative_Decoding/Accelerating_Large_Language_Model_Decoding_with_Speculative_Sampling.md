@@ -1,4 +1,4 @@
-
+<img width="758" alt="image" src="https://github.com/zgMin/Paper_Reading/assets/52092775/a81d92f5-62b5-4580-b25b-ea242ed80842">
 # Accelerating Large Language Model Decoding with Speculative Sampling
 - **作者**: Charlie Chen, Sebastian Borgeaud, Geoffrey Irving, Jean-Baptiste Lespiau, Laurent Sifre and John Jumper
 - **出版年份**: 2023
@@ -16,11 +16,17 @@
 
 2. 使用较大的目标模型将这k个token拼接到输入里面推理一个token，这样可以把k个draft token验证一次
 
-3. 如果当前token不可接受，后边也都是不可信的，如果K个token都被接受，那么大模型推理的第K+1个token也被接受。
+3. 如果当前token不可接受，后边也都是不可信的，如果k个token都被接受，那么大模型推理的第k+1个token也被接受。
+
+无损性证明见论文附录，proofs
 
 
 ## 实验结果
 作者使用一个针对抽样延迟进行了优化的40亿参数草稿模型对猜测抽样进行了评估。他们在基准任务上比较了猜测抽样与不同抽样方法的性能和速度，包括XSum基准和HumanEval任务。结果显示，猜测抽样在不损害样本质量的情况下实现了显著的加速。
+
+
+<img width="730" alt="image" src="https://github.com/zgMin/Paper_Reading/assets/52092775/db32462f-8f4e-477b-aa17-1177537e9378">
+
 
 
 ## 结论
