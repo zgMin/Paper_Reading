@@ -1,4 +1,3 @@
-<img width="758" alt="image" src="https://github.com/zgMin/Paper_Reading/assets/52092775/a81d92f5-62b5-4580-b25b-ea242ed80842">
 # Accelerating Large Language Model Decoding with Speculative Sampling
 - **作者**: Charlie Chen, Sebastian Borgeaud, Geoffrey Irving, Jean-Baptiste Lespiau, Laurent Sifre and John Jumper
 - **出版年份**: 2023
