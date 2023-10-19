@@ -11,6 +11,10 @@
 - 方法：引入投机采样作为一种方法，通过生成多个草稿标记来加速Transformer解码，该方法结合了一个草稿模型和一个目标模型以实现这种加速。。
 
 ## 方法
+
+<img width="747" alt="image" src="https://github.com/zgMin/Paper_Reading/assets/52092775/e7a29873-3c64-4318-b796-a65920b55b55">
+
+
 1. 生成一个较小的草稿模型，每次生成k个draft token。
 
 2. 使用较大的目标模型将这k个token拼接到输入里面推理一个token，这样可以把k个draft token验证一次
